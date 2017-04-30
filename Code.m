@@ -9,8 +9,8 @@ a0 = mean(file)
 an = [];
 bn = [];
 
-final_value = zeroes(length(file));
-final_value = final_value + a0;
+final_value = linspace(0,30,length(file));
+%final_value = final_value .* a0;
 
 for n = 1:100
    a(n) = 1/length(file) * trapz(file * cos(n));
@@ -18,14 +18,13 @@ for n = 1:100
 end
 
 for i = 1:100
-   final_value = final_value + cos(i*pi*2*n) * a(i);
-   final_value = final_value + sin(i*pi*2*n) * b(i);
-   
+   final_value = final_value + cos(i) * a(i);
+   final_value = final_value + sin(i) * b(i);
 end
 
 % sound(file, Fs);
 % 
 t=[1/Fs:1/Fs:length(file)/Fs];
 
-plot(t, file);
+%%plot(t, final_value);
 

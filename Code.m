@@ -1,30 +1,40 @@
-%% E12 Project
-w0 = 440;
-T = (2*pi)/w0;
-
 [file, Fs] = audioread('A.wav');
 file = file(:,1);
+file = file.';
 
-a0 = mean(file)
-an = [];
-bn = [];
+T = length(file);
+w0 = 2*pi/T;
 
-final_value = linspace(0,30,length(file));
-%final_value = final_value .* a0;
 
-for n = 1:100
-   a(n) = 1/length(file) * trapz(file * cos(n));
-   b(n) = 1/length(file) * trapz(file * sin(n));
+
+a0 = mean(file);
+t = linspace(0,length(file),length(file));
+result = zeros(1, length(file));
+
+
+result = result+a0;
+
+%%
+a = [];
+b = [];
+
+
+for n = 1:10000
+   a(n) = 2/T * trapz(file.*cos(n*w0.*t));
+   b(n) = 2/T * trapz(file.*sin(n*w0.*t));
 end
 
-for i = 1:100
-   final_value = final_value + cos(i) * a(i);
-   final_value = final_value + sin(i) * b(i);
+for i = 1:10000
+   an = a(i) * cos(i*w0*t);
+   
+   bn = b(i) * sin(i*w0*t);
+   
+   result = result + an + bn;
+   
+   
 end
-
-% sound(file, Fs);
-% 
-t=[1/Fs:1/Fs:length(file)/Fs];
-
-%%plot(t, final_value);
-
+figure
+plot(t, result)
+figure
+plot(t,file)
+sound(result,Fs);

@@ -35,6 +35,11 @@ for i = 1:10000
 end
 figure
 plot(t, result)
+title('Fourier Approximation of Sound File with n = 10000');
 figure
 plot(t,file)
+title('Original Sound File');
+
+
 sound(result,Fs);
+audiowrite('~/SoundApprox.wav',result, Fs)

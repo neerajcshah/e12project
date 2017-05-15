@@ -9,10 +9,9 @@ B = 12;
 C5 = 13; 
 D5 = 15
 E5 = 17;
-song = [C5, C5, C5, C5, B, A, B, C5, D5, E5, E5, E5]
+song = [C5, C5, C5, C5, B, A, B, C5, D5, E5, E5, E5];
 for i = 1:length(song)
     sound(file, Fs * notes(song(i)));
-    pause(1)
-    
+    pause(1) 
 end
  
